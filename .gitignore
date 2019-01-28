@@ -1,0 +1,9 @@
+# Extra Unity folders
+Library/*
+obj/*
+Packages/*
+Temp/*
+
+#VS Studio
+*.csproj
+*.sln
