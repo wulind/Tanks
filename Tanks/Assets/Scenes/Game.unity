@@ -909,6 +909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1250523426}
+  - component: {fileID: 1250523427}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -929,6 +930,23 @@ Transform:
   m_Father: {fileID: 1446317208}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1250523427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250523425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ef1aebc1b83574dbd02358b8630697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1000011918052674, guid: 0eedfbb8b95ca40439f4842e111ee6a8, type: 2}
+  preLoad: 0
+  limit: 0
+  maxCount: 0
+  active: []
+  inactive: []
 --- !u!4 &1315948812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000012285927828, guid: 33b424a73e5be0249828f4f65d594553,
@@ -1284,6 +1302,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1937406483}
+  - component: {fileID: 1937406485}
+  - component: {fileID: 1937406484}
   m_Layer: 0
   m_Name: Particles
   m_TagString: Untagged
@@ -1304,6 +1324,40 @@ Transform:
   m_Father: {fileID: 1446317208}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1937406484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1937406482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ef1aebc1b83574dbd02358b8630697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1000011513120438, guid: f70d27f5cf28c8941bbfd6febd74797f, type: 2}
+  preLoad: 0
+  limit: 0
+  maxCount: 0
+  active: []
+  inactive: []
+--- !u!114 &1937406485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1937406482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ef1aebc1b83574dbd02358b8630697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1000010321467122, guid: 0b39af0d39f5fe443807a910bd327abe, type: 2}
+  preLoad: 0
+  limit: 0
+  maxCount: 0
+  active: []
+  inactive: []
 --- !u!4 &1994418021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000010720999568, guid: e15e5f00f5d859442a4d8a73f6b3629e,
@@ -1435,6 +1489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2062775383}
+  - component: {fileID: 2062775384}
   m_Layer: 0
   m_Name: Projectiles
   m_TagString: Untagged
@@ -1455,3 +1510,20 @@ Transform:
   m_Father: {fileID: 1446317208}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2062775384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2062775382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ef1aebc1b83574dbd02358b8630697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1000010310479910, guid: 7a60c077f705e2742ac4de552f20f623, type: 2}
+  preLoad: 0
+  limit: 0
+  maxCount: 0
+  active: []
+  inactive: []
