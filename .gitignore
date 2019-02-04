@@ -1,8 +1,8 @@
 # Extra Unity folders
-Library/*
-obj/*
-Packages/*
-Temp/*
+Library/
+obj/
+Packages/
+Temp/
 
 #VS Studio
 *.csproj
