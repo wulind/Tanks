@@ -9,13 +9,30 @@ public class PlayerController : NetworkBehaviour {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
-	// Use this for initialization
-	void Start () {
+    public Transform gun;
+
+    /// <summary>
+    /// Reference to the camera following component.
+    /// </summary>
+    [HideInInspector]
+    public FollowTarget camFollow;
+
+    private Rigidbody rb;
+    public Vector3 spawnPosition;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void Awake() {
+        //get components and set camera target
+        rb = GetComponent<Rigidbody>();
+        spawnPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         if (!isLocalPlayer) {
             return;
@@ -30,14 +47,12 @@ public class PlayerController : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.Space)) {
             CmdFire();
         }
-
-        if (this.checkVictory()) {
-            Console.WriteLine("Victory");
-        }
     }
 
     public override void OnStartLocalPlayer() {
         GetComponent<MeshRenderer>().material.color = Color.blue;
+        camFollow = Camera.main.GetComponent<FollowTarget>();
+        camFollow.target = gun;
     }
 
     [Command]
@@ -55,8 +70,7 @@ public class PlayerController : NetworkBehaviour {
         Destroy(bullet, 2);
     }
 
-    private bool checkVictory() {
-
-        return true;
+    public bool localPlayerCheck() {
+        return isLocalPlayer;
     }
 }

@@ -1,14 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TanksMP
-{
-	/// <summary>
-	/// This class provides networked object pooling functionality and stores all Pool references.
-	/// Spawning and despawning is handled by calling the corresponding methods, but there are also
-	/// methods for creating Pools at runtime or destroying all gameobjects in a Pool completely.
-	/// </summary>
-	public class PoolManager : MonoBehaviour
+public class PoolManager : MonoBehaviour
 	{
 		//mapping of prefab to Pool container managing all of its instances
 		private static Dictionary<GameObject, Pool> Pools = new Dictionary<GameObject, Pool> ();
@@ -190,4 +183,3 @@ namespace TanksMP
 			Pools.Clear ();
 		}
 	}
-}

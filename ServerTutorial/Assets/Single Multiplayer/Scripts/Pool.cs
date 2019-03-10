@@ -2,13 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TanksMP
-{
-	/// <summary>
-	/// Child class interacting and managed by the PoolManager.
-	/// Handles all internal spawning/despawning of active/inactive instances.
-	/// </summary>
-	public class Pool : MonoBehaviour
+public class Pool : MonoBehaviour
 	{
 		/// <summary>
 		/// Prefab to instantiate for pooling.
@@ -315,4 +309,3 @@ namespace TanksMP
 		/// </summary>
 		public float time;
 	}
-}

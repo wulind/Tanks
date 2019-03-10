@@ -1,8 +1,6 @@
 using UnityEngine;
 
-namespace TanksMP
-{
-    public class Player : MonoBehaviour
+public class Player : MonoBehaviour
     {
         /// <summary>
         /// Current turret rotation and shooting direction.
@@ -103,6 +101,7 @@ namespace TanksMP
                 Shoot();
             }
         }
+
         void Move(Vector2 direction = default(Vector2))
         {
             if (direction != Vector2.zero)
@@ -112,8 +111,8 @@ namespace TanksMP
             rb.MovePosition(rb.position + movementDir);
 
         }
-        void RotateTurret(Vector2 direction = default(Vector2))
 
+        void RotateTurret(Vector2 direction = default(Vector2))
         {
             if (direction == Vector2.zero)
                 return;
@@ -138,4 +137,3 @@ namespace TanksMP
 
         }
     }
-}

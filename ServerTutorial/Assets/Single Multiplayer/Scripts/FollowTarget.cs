@@ -1,11 +1,5 @@
 ﻿using UnityEngine;
-
-namespace TanksMP
-{
-	/// <summary>
-	/// Camera script for following the player or a different target transform.
-	/// </summary>
-	public class FollowTarget : MonoBehaviour
+public class FollowTarget : MonoBehaviour
 	{
 		/// <summary>
 		/// The camera target to follow.
@@ -57,5 +51,4 @@ namespace TanksMP
         }
 
 
-    }
 }

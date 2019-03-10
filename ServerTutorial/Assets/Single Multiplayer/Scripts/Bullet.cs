@@ -14,12 +14,13 @@ public class Bullet : MonoBehaviour {
 		
 	}
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        GameObject hit = collision.gameObject;
+        GameObject hit = collider.gameObject;
         Health health = hit.GetComponent<Health>();
 
-        if (health != null) {
+        if (health != null)
+        {
             health.TakeDamage(10);
         }
 

@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TanksMP
-{
-	/// <summary>
+    /// <summary>
 	/// Handles playback of background music, 2D and 3D one-shot clips during the game.
 	/// Makes use of the PoolManager for activating 3D AudioSources at desired world positions.
 	/// </summary>
@@ -62,5 +60,4 @@ namespace TanksMP
 			//deactivate audio gameobject when the clip stops playing
 			PoolManager.Despawn (audioObj, clip.length);
 		}
-	}
 }
