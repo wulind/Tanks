@@ -3,35 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RestartGame : MonoBehaviour {
+public class RestartGame : MonoBehaviour
+{
     public Button restartButton;
-    
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         restartButton.gameObject.SetActive(false);
     }
 
     public void Restart()
     {
         restartButton.gameObject.SetActive(false);
+        Debug.Log("Restarting Game");
         PlayerController[] players = Resources.FindObjectsOfTypeAll<PlayerController>();
 
-        Debug.Log("Restarting Game");
-
-        foreach (PlayerController player in players) {
-            if (player.localPlayerCheck()) {
-                player.gameObject.GetComponent<Health>().resetHealth();
-                player.gameObject.transform.position = player.spawnPosition;
-                player.gameObject.SetActive(true);
-                player.gameObject.GetComponent<Health>().winLose.text = "";
-            }
+        foreach (PlayerController player in players)
+        {
+            player.gameObject.GetComponent<Health>().RpcPlayerRespawn();
         }
     }
 }

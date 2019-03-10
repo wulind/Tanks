@@ -1326,8 +1326,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 679299753}
-  - component: {fileID: 679299752}
   - component: {fileID: 679299751}
+  - component: {fileID: 679299752}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1358,7 +1358,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 679299750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -822479833, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: 11500000, guid: e9127683ca8a9ff4e9ffccfe6f57ae76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -1373,7 +1373,7 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 1033469605274522, guid: 47f3efe0ce03a3f4486886e18f646d92,
     type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 1
+  m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
   m_SpawnPrefabs:

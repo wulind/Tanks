@@ -63,11 +63,26 @@ public class Health : NetworkBehaviour {
         restart.restartButton.gameObject.SetActive(true);
     }
 
+    [ClientRpc]
+    public void RpcPlayerRespawn()
+    {
+        gameObject.GetComponent<Health>().resetHealth();
+        gameObject.transform.position = gameObject.GetComponent<PlayerController>().spawnPosition;
+        gameObject.SetActive(true);
+        gameObject.GetComponent<Health>().winLose.text = "";
+    }
+
     void OnChangeHealth(int health) {
         healthbar.sizeDelta = new Vector2(health * 2, healthbar.sizeDelta.y);
     }
 
     public void resetHealth() {
         currentHealth = 100;
+    }
+
+    public void killPlayer()
+    {
+        currentHealth = 0;
+        Destroy(gameObject);
     }
 }
