@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 23000013250707318}
   - component: {fileID: 135000011308072078}
   - component: {fileID: 54000013431412088}
-  - component: {fileID: 114000014051134244}
+  - component: {fileID: 4836498279635812172}
+  - component: {fileID: 6737995843565103532}
   m_Layer: 10
-  m_Name: Bullet
+  m_Name: NetworkedBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &114000014051134244
+--- !u!114 &4836498279635812172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,18 +120,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010310479910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd273be5de0c024da7ef86707f5d826, type: 3}
+  m_Script: {fileID: 11500000, guid: bb91de125cf554197a1227c44d78571c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 18
+  speed: 10
   damage: 3
   despawnDelay: 1
-  hitClip: {fileID: 8300000, guid: 62fcfae30b4b9cd4fb7a8b5319e5938a, type: 3}
-  explosionClip: {fileID: 8300000, guid: 55c030d3c6b3b674e9bdd7449446236c, type: 3}
-  hitFX: {fileID: 1000010321467122, guid: 3ccf1b30bb4058f4499a550a8b569bc9, type: 3}
-  explosionFX: {fileID: 1000010321467122, guid: 0b39af0d39f5fe443807a910bd327abe,
-    type: 3}
+  hitClip: {fileID: 0}
+  explosionClip: {fileID: 0}
+  hitFX: {fileID: 0}
+  explosionFX: {fileID: 0}
   owner: {fileID: 0}
+--- !u!114 &6737995843565103532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010310479910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1000013784038190
 GameObject:
   m_ObjectHideFlags: 0

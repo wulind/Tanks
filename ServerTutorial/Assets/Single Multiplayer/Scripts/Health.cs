@@ -23,11 +23,6 @@ public class Health : NetworkBehaviour {
 
         restart = Object.FindObjectOfType<RestartGame>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-    }
 
     public void TakeDamage(int amount) {
         //make clients not run this code

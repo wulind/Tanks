@@ -7,16 +7,6 @@ public class RestartGame : MonoBehaviour
 {
     public Button restartButton;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void Awake()
     {
         restartButton.gameObject.SetActive(false);

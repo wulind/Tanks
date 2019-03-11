@@ -29,7 +29,7 @@ namespace TanksMP
 		/// <summary>
 		/// Current health value.
 		/// </summary>
-		public int health = 10;
+		[SyncVar (hook = "OnHealthChange")] public int health = 10;
         
 		/// <summary>
 		/// Maximum health value at game start.
@@ -97,12 +97,6 @@ namespace TanksMP
 		/// MeshRenderers that should be highlighted in team color.
 		/// </summary>
 		public MeshRenderer[] renderers;
-
-		/// <summary>
-		/// Last player gameobject that killed this one.
-		/// </summary>
-		[HideInInspector]
-		public GameObject killedBy;
         
 		/// <summary>
 		/// Reference to the camera following component.
@@ -115,9 +109,12 @@ namespace TanksMP
         
 		//reference to this rigidbody
 		private Rigidbody rb;
+        
+		///Prefab for NetworkedBullet
+		public GameObject bulletPrefab;
 
-		/// Used to indicate winning and losing player
-        public Text winLose;
+		///Used to indicate win/lose of player
+		Text winLose;
 
 		/// <summary>
 		/// Used to prevent player moving whilst respawning
@@ -141,7 +138,7 @@ namespace TanksMP
 			//set name in label
 			label.text = myName;
 
-			OnHealthChange (health);
+			// OnHealthChange (health);
 
             rb = GetComponent<Rigidbody> ();
 			camFollow = Camera.main.GetComponent<FollowTarget> ();
@@ -150,7 +147,7 @@ namespace TanksMP
 
 		void OnEnable ()
 		{
-			OnHealthChange (health);
+			// OnHealthChange (health);
 		}
 
 		void FixedUpdate ()
@@ -203,7 +200,7 @@ namespace TanksMP
 
 			//shoot bullet on left mouse click
 			if (Input.GetButton ("Fire1"))
-				Shoot ();
+				Shoot();
 
 		}
       
@@ -248,9 +245,21 @@ namespace TanksMP
 				//set next shot timestamp
 				nextFire = Time.time + fireRate;
 
+				//create bullet from prefab
+				GameObject bullet = (GameObject)Instantiate(bulletPrefab, shotPos.position, turret.rotation);
+				
+				//add velocity to bullet
+				bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6.0f;
+
+				//bulletSpawn bullet on client
+				NetworkServer.Spawn(bullet);
+
+				//destory bullet after 2 sec
+				Destroy(bullet, 2);
+
 				//spawn bullet using pooling, locally
-				GameObject obj = PoolManager.Spawn (bullet, shotPos.position, turret.rotation);
-				Bullet blt = obj.GetComponent<Bullet> ();
+				// GameObject obj = PoolManager.Spawn (bullet, shotPos.position, turret.rotation);
+				NetworkedBullet blt = bullet.GetComponent<NetworkedBullet>();
 				blt.owner = gameObject;
 
 				if (shotFX)
@@ -271,14 +280,14 @@ namespace TanksMP
 		/// Calculate damage to be taken by the Player,
 		/// triggers score increase and respawn workflow on death.
 		/// </summary>
-		public void TakeDamage (Bullet bullet)
+		public void TakeDamage (NetworkedBullet bullet)
 		{
             if (!isServer)
                 return;
              
 			//substract health by damage
 			health -= bullet.damage;
-			OnHealthChange (health);
+			// OnHealthChange (health);
 
 			//bullet killed the player
 			if (health <= 0)
@@ -289,26 +298,6 @@ namespace TanksMP
                 RpcPlayerDead();
                 gameObject.SetActive(false);
             }
-				// //the game is already over so don't do anything
-				// if (GameManager.GetInstance ().gameOver)
-				// 	return;
-				
-				// //get killer and increase score for that team
-				// Player other = bullet.owner.GetComponent<Player> ();
-				// GameManager.GetInstance ().score [other.teamIndex]++;
-				// GameManager.GetInstance ().ui.OnTeamScoreChanged (other.teamIndex);
-				// //the maximum score has been reached now
-				// if (GameManager.GetInstance ().IsGameOver ())
-				// {
-				// 	//tell client the winning team
-				// 	GameOver (other.teamIndex);
-				// 	return;
-				// }
-
-				// //the game is not over yet, reset runtime values
-				// health = maxHealth;
-				// OnHealthChange (health);
-				// Respawn ();
 		}
 
         /// <summary>
@@ -325,62 +314,28 @@ namespace TanksMP
                     winLose.text = "Win";
 
                 players[0].gameObject.SetActive(false);
-                players[1].gameObject.SetActive(false);
+				players[1].gameObject.SetActive(false);
             }
-            Button restartButton = GetComponent<Canvas>().GetComponentInChildren<Button>();
-            restartButton.gameObject.SetActive(true);
+            GameManager.GetInstance().DisplayRestart();
         }
 
 		/// <summary>
 		/// This is when the respawn delay is over
 		/// </summary>
-		public virtual void Respawn ()
+		[ClientRpc]
+		public void RpcPlayerRespawn ()
 		{
-			//toggle visibility for player gameobject (on/off)
-			gameObject.SetActive (!gameObject.activeInHierarchy);
-			bool isActive = gameObject.activeInHierarchy;
-            
-			//the player has been killed
-			if (!isActive)
-			{
-				//detect whether the current user was responsible for the kill
-				//yes, that's my kill: increase local kill counter
-				if (killedBy == GameManager.GetInstance ().localPlayer.gameObject)
-				{
-					GameManager.GetInstance ().ui.killCounter [0].text = (int.Parse (GameManager.GetInstance ().ui.killCounter [0].text) + 1).ToString ();
-					GameManager.GetInstance ().ui.killCounter [0].GetComponent<Animator> ().Play ("Animation");
-				}
-
-				if (explosionFX)
-				{
-					//spawn death particles locally using pooling and colorize them in the player's team color
-					GameObject particle = PoolManager.Spawn (explosionFX, transform.position, transform.rotation);
-					ParticleColor pColor = particle.GetComponent<ParticleColor> ();
-					if (pColor)
-						pColor.SetColor (GameManager.GetInstance ().teams [teamIndex].material.color);
-				}
-				
-				//play sound clip on player death
-				if (explosionClip)
-					AudioManager.Play3D (explosionClip, transform.position);
-			}
-
 			//further changes only affect the local player
 			if (!isLocalPlayer)
 				return;
 
+			//toggle visibility for player gameobject (on/off)
+			gameObject.SetActive (true);
+			winLose.text = "";
+			health = maxHealth;
+
 			//local player got respawned so reset states
-			if (isActive == true)
-				ResetPosition ();
-			else
-			{
-				//local player was killed, set camera to follow the killer
-				camFollow.target = killedBy.transform;
-				//disable input
-				disableInput = true;
-				//display respawn window (only for local player)
-				GameManager.GetInstance ().DisplayDeath ();
-			} 
+			ResetPosition ();
 		}
 
 		/// <summary>
@@ -396,7 +351,7 @@ namespace TanksMP
 			disableInput = false;
 
 			//get team area and reposition it there
-			transform.position = GameManager.GetInstance ().GetSpawnPosition (teamIndex);
+			transform.position = GameManager.GetInstance().GetSpawnPosition(teamIndex);
             
 			//reset forces modified by input
 			rb.velocity = Vector3.zero;
@@ -417,7 +372,7 @@ namespace TanksMP
 		void GameOver (int teamIndex)
 		{
 			//display game over window
-			GameManager.GetInstance ().DisplayGameOver (teamIndex);
+			GameManager.GetInstance().DisplayGameOver (teamIndex);
 		}
 	}
 }

@@ -20,11 +20,6 @@ public class PlayerController : NetworkBehaviour {
     private Rigidbody rb;
     public Vector3 spawnPosition;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-
     public void Awake() {
         //get components and set camera target
         rb = GetComponent<Rigidbody>();

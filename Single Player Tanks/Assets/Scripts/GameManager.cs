@@ -72,11 +72,18 @@ namespace TanksMP
 		/// </summary>
 		public NetworkManager networkManager;
 
+		public RestartGame restart;
+
+		void Start()
+		{
+			restart = Object.FindObjectOfType<RestartGame>();
+		}
+
 		//initialize variables
 		void Awake ()
 		{
 			instance = this;
-
+			
 			networkManager = GameObject.FindObjectOfType<NetworkManager>();
 			networkManager.gameObject.SetActive(false);
 			
@@ -127,8 +134,6 @@ namespace TanksMP
 		public void CreateNetworkGame()
 		{
 			networkManager.gameObject.SetActive(true);
-			UIGame UICanvas = GameObject.FindObjectOfType<UIGame>(); //kill counters not needed
-			UICanvas.gameObject.SetActive(false);
 
 			GameObject[] SPObjects = GameObject.FindGameObjectsWithTag("SinglePlayer");
 			foreach(GameObject obj in SPObjects){
@@ -274,7 +279,20 @@ namespace TanksMP
 			localPlayer.Respawn ();
 		}
 
-        
+		/// <summary>
+		/// Shows restart button for a Network Game
+		/// </summary>
+		public void DisplayRestart(){
+			restart.gameObject.SetActive(true);
+		}
+
+		/// <summary>
+		/// Restarts a network game
+		/// </summary>
+		public void RestartNetworkGame(){
+			restart.Restart();
+		}
+
 		/// <summary>
 		/// Only for this player: sets game over text stating the winning team.
 		/// Disables player movement so no updates are sent through the network.
